@@ -152,6 +152,11 @@ import qualified Data.Foldable as Foldable
 import Data.Map.Strict (Map)
 import Data.Set (Set)
 import qualified Data.Map.Strict as Map
+#if MIN_VERSION_containers(0,6,0)
+import qualified Data.Map.Internal.Debug as Map.Debug
+#else
+import qualified Data.Map.Strict         as Map.Debug
+#endif
 import qualified Data.Set as Set
 import qualified Data.List as List
 import Control.DeepSeq (NFData(..))
@@ -753,7 +758,7 @@ showTree s = showTreeWith True False s
 
 -}
 showTreeWith :: Show a => Bool -> Bool -> MultiSet a -> String
-showTreeWith hang wide = Map.showTreeWith s hang wide . unMS
+showTreeWith hang wide = Map.Debug.showTreeWith s hang wide . unMS
   where s a n = showChar '(' . shows n . showString "*)" . shows a $ ""
 
 {--------------------------------------------------------------------

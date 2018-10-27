@@ -146,6 +146,11 @@ import Data.IntMap.Strict (IntMap)
 import Data.IntSet (IntSet)
 import Data.MultiSet (MultiSet)
 import qualified Data.IntMap.Strict as Map
+#if MIN_VERSION_containers(0,6,0)
+import qualified Data.IntMap.Internal.Debug as Map.Debug
+#else
+import qualified Data.IntMap.Strict         as Map.Debug
+#endif
 import qualified Data.IntSet as Set
 import qualified Data.List as List
 import qualified Data.MultiSet as MultiSet
@@ -771,4 +776,4 @@ showTree s = showTreeWith True False s
 
 -}
 showTreeWith :: Bool -> Bool -> IntMultiSet -> String
-showTreeWith hang wide = Map.showTreeWith hang wide . unMS
+showTreeWith hang wide = Map.Debug.showTreeWith hang wide . unMS
